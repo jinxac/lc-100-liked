@@ -1,4 +1,29 @@
 class Solution: 
+    
+    def hamming_approach(self, num):
+        res = []
+        def count_bits(x):
+            cnt = 0
+            while x:
+                x &= x -1
+                cnt += 1
+            
+            return cnt
+        
+        for i in range(num + 1):
+            res.append(count_bits(i))
+        
+        return res
+    
+    
+    def n_lsb_approach(self, num):
+        dp = [0] * (num + 1)
+        for i in range(1, num+1):
+            dp[i] = dp[i>>1] + (i & 1)
+        
+        return dp
+    
+    
     def nlogn_approach(self,num):
         def increment_content(nums):
             for i in range(len(nums)):
@@ -26,5 +51,7 @@ class Solution:
         return res[0:temp_num+1]
     
     def countBits(self, num: int) -> List[int]:
-        return self.nlogn_approach(num)
+        # return self.nlogn_approach(num)
+        # return self.hamming_approach(num)
+        return self.n_lsb_approach(num)
         
